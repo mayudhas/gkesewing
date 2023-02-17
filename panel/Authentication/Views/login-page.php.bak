@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html class="loading" lang="en" data-textdirection="ltr">
+<!-- BEGIN: Head-->
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=0,minimal-ui">
+    <meta name="description"
+          content="Vuexy admin is super flexible, powerful, clean &amp; modern responsive bootstrap 4 admin template with unlimited possibilities.">
+    <meta name="keywords"
+          content="admin template, Vuexy admin template, dashboard template, flat admin template, responsive admin template, web app">
+    <meta name="author" content="PIXINVENT">
+    <title>Login Page - Vuexy - Bootstrap HTML admin template</title>
+    <link rel="apple-touch-icon" href="../../../app-assets/images/ico/apple-icon-120.png">
+    <link rel="shortcut icon" type="image/x-icon" href="../../../app-assets/images/ico/favicon.ico">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500;1,600"
+          rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="<?= base_url('app-assets/vendors/css/vendors.min.css') ?>">
+    <link rel="stylesheet" type="text/css" href="<?= base_url('app-assets/css/bootstrap.min.css') ?>">
+    <link rel="stylesheet" type="text/css" href="<?= base_url('app-assets/css/bootstrap-extended.min.css') ?>">
+    <link rel="stylesheet" type="text/css" href="<?= base_url('app-assets/css/components.min.css') ?>">
+    <link rel="stylesheet" type="text/css" href="<?= base_url('app-assets/css/pages/authentication.css') ?>">
+
+    <link rel="stylesheet" href="<?= base_url('app-assets/vendors/css/extensions/sweetalert2.min.css') ?>">
+</head>
+<body class="vertical-layout vertical-menu-modern blank-page navbar-floating footer-static  " data-open="click"
+      data-menu="vertical-menu-modern" data-col="blank-page">
+<!-- BEGIN: Content-->
+<div class="app-content content ">
+    <div class="content-overlay"></div>
+    <div class="header-navbar-shadow"></div>
+    <div class="content-wrapper">
+        <div class="content-header row">
+        </div>
+        <div class="content-body">
+            <div class="auth-wrapper auth-basic px-2">
+                <div class="auth-inner my-2">
+                    <!-- Login basic -->
+                    <div class="card mb-0 shadow-lg rounded-3 ">
+                        <div class="card-body">
+                            <a href="#" class="brand-logo">
+                                <img style="width: 70px" src="<?= base_url('public/data/img/logo/logo_gke.png')?>" alt="">
+                            </a>
+                            <h2 class="brand-text text-primary ms-1 text-center mb-1">POS Penjahit</h2>
+                            <?= form_open(uri_string(), ['class' => 'form-login']); ?>
+                            <?= getCsrfToken(); ?>
+                            <div class="mb-1">
+                                <label for="username" class="form-label">Username</label>
+                                <input type="text" class="form-control" id="username" name="username"
+                                       placeholder="username" aria-describedby="username" tabindex="1"
+                                       autofocus required/>
+                            </div>
+
+                            <div class="mb-1">
+                                <div class="d-flex justify-content-between">
+                                    <label class="form-label" for="password">Password</label>
+                                    <a href="#">
+                                        <small>Forgot Password?</small>
+                                    </a>
+                                </div>
+                                <div class="input-group input-group-merge form-password-toggle">
+                                    <input type="password" class="form-control form-control-merge"
+                                           id="password" name="password" tabindex="2"
+                                           placeholder="*************"
+                                           aria-describedby="password" required/>
+                                    <span class="input-group-text cursor-pointer"><i data-feather="eye"></i></span>
+                                </div>
+                            </div>
+                            <div class="mb-1">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="remember-me" tabindex="3"/>
+                                    <label class="form-check-label" for="remember-me"> Remember Me </label>
+                                </div>
+                            </div>
+                            <button class="btn btn-primary w-100 btn-sign-in" tabindex="4">Login</button>
+                            <?= form_close(); ?>
+                            <div class="divider my-2">
+                                <div class="divider-text">Copyright</div>
+                            </div>
+
+                            <div class="auth-footer-btn text-center">
+                                <span> Pos Penjahit GKE
+                                <br><?= date('Y'); ?> Version 1.0.0
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /Login basic -->
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- END: Content-->
+
+<script src="<?= base_url('app-assets/vendors/js/vendors.min.js') ?>"></script>
+<script src="<?= base_url('app-assets/js/core/app-menu.min.js') ?>"></script>
+<script src="<?= base_url('app-assets/js/core/app.min.js') ?>"></script>
+<script src="<?= base_url('app-assets/js/scripts/pages/auth-login.js') ?>"></script>
+<script src="<?= base_url('app-assets/vendors/js/extensions/sweetalert2.all.min.js') ?>"></script>
+
+<script>
+    $(window).on('load', function () {
+        if (feather) {
+            feather.replace({
+                width: 14,
+                height: 14
+            });
+        }
+    })
+    $('.form-login').submit(function () {
+        $.ajax({
+            type: "POST",
+            url: $(this).attr('action'),
+            data: $(this).serialize(),
+            cache: false,
+            dataType: 'JSON',
+            beforeSend: () => {
+                $('.btn-sign-in').html(`Loading . . .`).prop('disabled', true)
+            },
+            complete: () => {
+                $('.btn-sign-in').html(`Sign in`).prop('disabled', false)
+            },
+            success: function (result) {
+                if (result.status === true) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Berhasil',
+                        html: result.message,
+                        timer: 2500,
+                        showConfirmButton: false,
+                        onBeforeOpen: () => {
+                            Swal.showLoading();
+                        }
+                    }).then((result) => {
+                        location.href = '<?=site_url('dashboard');?>'
+                    });
+                }
+            },
+            error: function (jqXHR, error, errorThrown) {
+                const jsonValue = JSON.parse(jqXHR.responseText);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Failed !!!',
+                    html: jsonValue.message,
+                    timer: 2200,
+                    showConfirmButton: false,
+                });
+            }
+        });
+        return false;
+    })
+</script>
+</body>
+<!-- END: Body-->
+
+</html>
