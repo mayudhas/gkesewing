@@ -76,6 +76,27 @@ $cookie = \App\Helpers\CookieHelper::getCookie();
             </div>
         </div>
     </div>
+    <div class="col-12 col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h5>Pemasukan & Pengeluaran</h5>
+            </div>
+            <div class="card-body">
+                <div class="form-group mb-2">
+                    <label class="form-label">Pilih Tahun</label>
+                    <select class="form-select" name="year" onchange="renderChart(this.value)">
+                        <?php
+                        for ($i = startYear(); $i <= date('Y'); $i++) {
+                            $selected = $params['year'] == $i ? 'selected' : '';
+                            echo "<option $selected value='$i'>$i</option>";
+                        }
+                        ?>
+                    </select>
+                </div>
+                <canvas id="incomeOutcomeChart" height="100"></canvas>
+            </div>
+        </div>
+    </div>
 </div>
 <h1>Hello World!</h1>
 <pre>
@@ -93,6 +114,51 @@ $cookie = \App\Helpers\CookieHelper::getCookie();
 <?= $this->endSection() ?>
 
 <?= $this->section('js') ?>
-<script></script>
-<script src=""></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    const ctx = document.getElementById('incomeOutcomeChart');
+
+    const incomeOutcomeChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'],
+            datasets: [
+                {
+                    label: 'Pemasukan',
+                    data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    fill: false,
+                    borderColor: '#4760FF',
+                    tension: 0.1
+                },
+                {
+                    label: 'Pengeluaran',
+                    data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    fill: false,
+                    borderColor: '#FF4747',
+                    tension: 0.1
+                }
+            ]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+
+    function renderChart(year) {
+        $.getJSON(baseUrl('/dashboard/get-income-outcome'), {
+            year: year
+        }, function (data) {
+            const {income, outcome} = data
+            incomeOutcomeChart.data.datasets[0].data = income
+            incomeOutcomeChart.data.datasets[1].data = outcome
+            incomeOutcomeChart.update()
+        });
+    }
+
+    renderChart(<?= $params['year']?>)
+</script>
 <?= $this->endSection() ?>

@@ -110,7 +110,6 @@
     </div>
 </div>
 <script src="<?= base_url('app-assets/vendors/js/vendors.min.js') ?>"></script>
-<?= $this->renderSection('js') ?>
 <script src="<?= base_url('app-assets/js/core/app-menu.min.js') ?>"></script>
 <script src="<?= base_url('app-assets/js/core/app.min.js') ?>"></script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -201,5 +200,6 @@
         })
     </script>
 <?php } ?>
+<?= $this->renderSection('js') ?>
 </body>
 </html>
