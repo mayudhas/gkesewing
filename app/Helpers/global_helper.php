@@ -2,6 +2,9 @@
 
 function formatUang($uang, $rp = false, $decimals = 0): string
 {
+    if (!$uang) {
+        return "";
+    }
     $serRp = '';
     if ($rp) $serRp = 'Rp. ';
     return $serRp . number_format($uang, $decimals, ',', '.');

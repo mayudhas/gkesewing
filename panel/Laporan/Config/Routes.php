@@ -7,4 +7,7 @@ $routes->group('laporan', ['namespace' => 'Panel\Laporan\Controllers', 'filter' 
     $routes->group('buku-besar', static function ($routes) {
         $routes->get('/', 'BukuBesarController::index');
     });
+    $routes->group('jurnal', static function ($routes) {
+        $routes->get('/', 'JurnalController::index');
+    });
 });
