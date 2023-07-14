@@ -10,4 +10,7 @@ $routes->group('laporan', ['namespace' => 'Panel\Laporan\Controllers', 'filter' 
     $routes->group('jurnal', static function ($routes) {
         $routes->get('/', 'JurnalController::index');
     });
+    $routes->group('laba-rugi', static function ($routes) {
+        $routes->get('/', 'LabaRugiController::index');
+    });
 });

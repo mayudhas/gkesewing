@@ -51,6 +51,25 @@ class BukuJurnalService
     }
 
     /**
+     * @param int $year
+     * @param int $month
+     * @param int $account (4=pendapatan, 5=pengeluaran)
+     * @return array
+     */
+    public final function getLedgerLabaRugi(int $year, int $month, int $account = 4): array
+    {
+        return $this->ledgerDetailModel
+            ->select('account_code, account_name, SUM(ledger_detail_score) AS total')
+            ->join('account', 'account_code')
+            ->join('ledger', 'ledger_code')
+            ->where('YEAR(ledger_date)', $year)
+            ->where('MONTH(ledger_date)', $month)
+            ->where('SUBSTR(account_code,1,1)', $account)
+            ->groupBy('account_code')
+            ->findAll();
+    }
+
+    /**
      * @throws ReflectionException
      */
     public final function store(Request $request): array

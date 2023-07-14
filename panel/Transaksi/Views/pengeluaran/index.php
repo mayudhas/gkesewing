@@ -55,12 +55,6 @@ use App\Helpers\CookieHelper;
                                 <td class="text-center align-top"><?= $i + 1 ?></td>
                                 <td>
                                     <div class="d-flex justify-content-start align-items-center user-name">
-                                        <div class="avatar-wrapper">
-                                            <div class="avatar avatar-lg me-3">
-                                                <img src="<?= base_url($spending->spending_photo_path)?>" alt="Avatar"
-                                                     class="rounded-circle">
-                                            </div>
-                                        </div>
                                         <div class="d-flex flex-column">
                                             <?= $spending->spending_date ?><br><?= $spending->spending_desc ?>
                                         </div>
@@ -69,7 +63,7 @@ use App\Helpers\CookieHelper;
                                 <td class="<?= isset($spending->supplier->supplier_company) ? '' : 'text-center' ?>"><?= $spending->supplier->supplier_company ?? "-" ?></td>
                                 <td class="text-end"><?= formatUang($spending->spending_total, true) ?></td>
                                 <td class="text-center"><?= $spending->is_ledger === 1 ? '<span class="badge badge-light-success">Sudah</span>' : '<span class="badge badge-light-danger">Belum</span>' ?></td>
-                                <td><?= $spending->employee->employee_name ?></td>
+                                <td><?= $spending->employee?->employee_name ?></td>
                                 <td class="text-center">
                                     <button onclick="showModalDelete('<?= base_url('transaksi/pengeluaran/' . $spending->spending_id . '?_method=delete') ?>')"
                                             class="btn btn-danger btn-sm btn-icon"><i data-feather='trash-2'></i>

@@ -50,7 +50,7 @@
                                 $totalAll += $transaction->total;
                                 ?>
                                 <tr>
-                                    <td><?= $i + 1; ?></td>
+                                    <td><?= $transaction->transaction_code; ?></td>
                                     <td class="text-center"><?= dateIndoNumber($transaction->transaction_date); ?></td>
                                     <td><?= $transaction->employee_name; ?></td>
                                     <td><?= $transaction->customer_phone; ?></td>

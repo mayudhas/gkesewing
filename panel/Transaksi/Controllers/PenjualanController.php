@@ -30,7 +30,6 @@ class PenjualanController extends CorePanelController
         if ($this->request->getGet('reset') == true) {
             delete_cookie(CookieHelper::$transaction);
             $this->PenjualanService->resetTransaction();
-            return redirect()->back();
         }
         $breadcrumbs = [
             ['title' => 'Penjualan', 'href' => '#']

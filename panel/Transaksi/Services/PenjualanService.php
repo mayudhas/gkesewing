@@ -110,6 +110,8 @@ class PenjualanService
             $response = ResponseHelper::getStatusFalse('Transaksi gagal');
         } else {
             $this->DB->transCommit();
+            delete_cookie(CookieHelper::$transaction);
+            $this->resetTransaction();
             $response = ResponseHelper::getStatusTrue('Transaksi berhasil');
         }
         return $response;

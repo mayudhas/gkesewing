@@ -71,7 +71,7 @@
                                             <select class="form-select select-account" name="account_code[]" required>
                                                 <option disabled selected value="">Rekening :</option>
                                                 <?php array_walk($accounts, function ($account) {
-                                                    echo "<option value='{$account->account_code}'>{$account->account_name}</option>";
+                                                    echo "<option value='{$account->account_code}'>{$account->account_code} - {$account->account_name}</option>";
                                                 }) ?>
                                             </select>
                                         </td>
@@ -126,7 +126,7 @@
             const accounts = $(this).data('accounts');
             let selectAccount = `<option disabled selected value="">Rekening :</option>`;
             accounts.forEach(function (account) {
-                selectAccount += `<option value="${account.account_code}">${account.account_name}</option>`;
+                selectAccount += `<option value="${account.account_code}">${account.account_code} - ${account.account_name}</option>`;
             })
 
             const posts = $(this).data('posts');
