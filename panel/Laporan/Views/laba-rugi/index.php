@@ -93,7 +93,7 @@ $spaci = '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
                         </tr>
 
                         <tr>
-                            <td class="fw-bold">Laba Bersih</td>
+                            <td class="fw-bold">Laba / Rugi</td>
                             <td></td>
                             <td class="text-end fw-bold">Rp. <?= formatUang($totalPendapatan - $totalBeban); ?></td>
                         </tr>
